@@ -1,8 +1,12 @@
+import { useDeleteTodoMutation } from "@/redux/api/api";
 import { removeTodo, toggleStatus } from "@/redux/features/todoSlice";
 import { useAppDispatch } from "@/redux/hook";
 
 const TodoCard = ({ task }: any) => {
   const dispatch = useAppDispatch();
+  const [deleteTodo, { isSuccess, isError, isLoading }] =
+    useDeleteTodoMutation();
+  console.log(isSuccess, isError, isLoading);
   const toggleState = () => {
     dispatch(toggleStatus(task.title));
   };
@@ -17,7 +21,7 @@ const TodoCard = ({ task }: any) => {
           className=" mr-4"
           onChange={toggleState}
         />
-        <h1 className="flex-1">{task.title}</h1>
+        <h1 className="flex-1 text-start">{task.title}</h1>
         <div className="flex flex-1 gap-4 items-center">
           <div
             className={`size-3 rounded-full ${
@@ -38,11 +42,12 @@ const TodoCard = ({ task }: any) => {
           {task.isCompleted ? "complete" : "pending"}
         </h1>
         {/* <h1>Time</h1> */}
-        <p className="flex-[2]">{task.description}</p>
+        <p className="flex-[2] text-start">{task.description}</p>
         <div className="text-white flex gap-2">
           <button
             className="bg-red-500 px-4 py-1 rounded"
-            onClick={() => dispatch(removeTodo(task.title))}
+            // onClick={() => dispatch(removeTodo(task.title))}
+            onClick={() => deleteTodo(task._id)}
           >
             Delete
           </button>

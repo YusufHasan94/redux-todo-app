@@ -14,12 +14,19 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { useAppDispatch } from "@/redux/hook";
 import { addTodo } from "@/redux/features/todoSlice";
+import { useAddTodoMutation } from "@/redux/api/api";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("");
   const [description, setDescription] = useState("");
-  const dispatch = useAppDispatch();
+  //for local state
+  // const dispatch = useAppDispatch();
+
+  //for server
+  const [addTodo, { isLoading, isError, isSuccess }] = useAddTodoMutation();
+
+  console.log(isError, isSuccess, isLoading);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -30,7 +37,11 @@ const AddTodoModal = () => {
       description: description,
     };
 
-    dispatch(addTodo(taskDetails));
+    //for local state
+    // dispatch(addTodo(taskDetails));
+
+    //for server
+    addTodo(taskDetails);
   };
   return (
     <Dialog>
