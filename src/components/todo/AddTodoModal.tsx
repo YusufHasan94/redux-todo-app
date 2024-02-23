@@ -12,19 +12,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
+import { useAppDispatch } from "@/redux/hook";
+import { addTodo } from "@/redux/features/todoSlice";
 
-const AddTodo = () => {
+const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const taskDetails = {
-      task,
-      description,
+      title: task,
+      description: description,
     };
 
-    console.log(taskDetails);
+    dispatch(addTodo(taskDetails));
   };
   return (
     <Dialog>
@@ -74,4 +78,4 @@ const AddTodo = () => {
   );
 };
 
-export default AddTodo;
+export default AddTodoModal;
