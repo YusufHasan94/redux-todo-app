@@ -17,6 +17,7 @@ import { addTodo } from "@/redux/features/todoSlice";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
+  const [priority, setPriority] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useAppDispatch();
 
@@ -25,6 +26,7 @@ const AddTodoModal = () => {
 
     const taskDetails = {
       title: task,
+      priority: priority,
       description: description,
     };
 
@@ -55,6 +57,16 @@ const AddTodoModal = () => {
                 id="title"
                 className="col-span-3"
                 onChange={(e) => setTask(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="priority" className="text-right">
+                Priority
+              </Label>
+              <Input
+                id="priority"
+                className="col-span-3"
+                onChange={(e) => setPriority(e.target.value)}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">

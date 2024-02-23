@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-type TTodo = {
+export type TTodo = {
+  _id?: string;
   title: string;
   description: string;
   isCompleted?: boolean;
+  priority?: string;
 };
 
 type TInitialState = {
