@@ -1,9 +1,9 @@
 import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
-import { TTodo, removeTodo, toggleStatus } from "@/redux/features/todoSlice";
-import { useAppDispatch } from "@/redux/hook";
+// import { TTodo, removeTodo, toggleStatus } from "@/redux/features/todoSlice";
+// import { useAppDispatch } from "@/redux/hook";
 
 const TodoCard = ({ task }: any) => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [deleteTodo, { isSuccess }] = useDeleteTodoMutation();
   const [updateTodo, { isLoading }] = useUpdateTodoMutation();
 
@@ -36,6 +36,7 @@ const TodoCard = ({ task }: any) => {
           type="checkbox"
           name="completed"
           id=""
+          checked={task.isCompleted}
           className=" mr-4"
           onChange={toggleState}
         />

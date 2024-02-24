@@ -1,4 +1,14 @@
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { FormEvent, useState } from "react";
 import {
   Dialog,
@@ -12,8 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
-import { useAppDispatch } from "@/redux/hook";
-import { addTodo } from "@/redux/features/todoSlice";
+// import { useAppDispatch } from "@/redux/hook";
+// import { addTodo } from "@/redux/features/todoSlice";
 import { useAddTodoMutation } from "@/redux/api/api";
 
 const AddTodoModal = () => {
@@ -27,7 +37,7 @@ const AddTodoModal = () => {
   const [addTodo, { isLoading, isError, isSuccess }] = useAddTodoMutation();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Loading onk...</p>;
   }
   if (isError) {
     return <p>Error...</p>;
@@ -79,16 +89,6 @@ const AddTodoModal = () => {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="priority" className="text-right">
-                Priority
-              </Label>
-              <Input
-                id="priority"
-                className="col-span-3"
-                onChange={(e) => setPriority(e.target.value)}
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="taskDescription" className="text-right">
                 Description
               </Label>
@@ -98,6 +98,21 @@ const AddTodoModal = () => {
                 className="col-span-3"
                 onChange={(e) => setDescription(e.target.value)}
               />
+            </div>
+            <div className="grid items-center gap-4">
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="">
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Priority</SelectLabel>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>
