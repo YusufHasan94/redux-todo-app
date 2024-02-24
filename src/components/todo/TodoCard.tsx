@@ -1,14 +1,32 @@
-import { useDeleteTodoMutation } from "@/redux/api/api";
-import { removeTodo, toggleStatus } from "@/redux/features/todoSlice";
+import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
+import { TTodo, removeTodo, toggleStatus } from "@/redux/features/todoSlice";
 import { useAppDispatch } from "@/redux/hook";
 
 const TodoCard = ({ task }: any) => {
   const dispatch = useAppDispatch();
-  const [deleteTodo, { isSuccess, isError, isLoading }] =
-    useDeleteTodoMutation();
-  console.log(isSuccess, isError, isLoading);
+  const [deleteTodo, { isSuccess }] = useDeleteTodoMutation();
+  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
+
+  if (isLoading) {
+    return <p>is Loading...</p>;
+  }
+  if (isSuccess) {
+    return <p>Data fetched successfully...</p>;
+  }
+
   const toggleState = () => {
-    dispatch(toggleStatus(task.title));
+    // dispatch(toggleStatus(task.title));
+
+    const options = {
+      id: task._id,
+      data: {
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        isCompleted: !task.isCompleted,
+      },
+    };
+    updateTodo(options);
   };
 
   return (
